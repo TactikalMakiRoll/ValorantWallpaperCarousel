@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/icons/valorant.svg" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+            rel="stylesheet" />
+        <link rel="stylesheet" href="./normalize.css" />
+        <link rel="stylesheet" href="./style.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Valorant Wallpapers</title>
+    </head>
+    <body>
+        <main class="main">
+            <div class="intro">
+                <h1 class="intro__heading">
+                    Pick your favorite Valorant wallpaper!
+                </h1>
+                <h2 class="intro__description">
+                    Scroll through the slider and select your favourite
+                </h2>
+                <h3 class="intro__attribution">
+                    All wallpapers are a work of
+                    <a
+                        class="intro__attribution-link"
+                        href="https://twitter.com/ExCharny"
+                        >@ExCharny<img
+                            class="intro__attribution-logo"
+                            src="icons/twitter.svg"
+                            alt="twitter icon" /></a
+                    >, you can download the wallpapers there. Please also give
+                    him a follow on Twitter or Patreon!
+                </h3>
+            </div>
+
+            <div class="carousel">
+                <div class="carousel__items"></div>
+                <div class="carousel__buttons">
+                    <img
+                        src="/icons/left-arrow.svg"
+                        alt="swipe left"
+                        class="carousel__move-btn carousel__move-btn--left" />
+                    <div class="carousel__switch-btns"></div>
+                    <img
+                        src="/icons/right-arrow.svg"
+                        alt="swipe right"
+                        class="carousel__move-btn carousel__move-btn--right" />
+                </div>
+            </div>
+        </main>
+        <script type="module" src="/main.js"></script>
+    </body>
+</html>
