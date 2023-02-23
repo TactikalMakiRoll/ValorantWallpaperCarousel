@@ -1,4 +1,6 @@
 .main{
+  display: flex;
+  flex-direction: column;
   height: 100vh;
   height: 100svh;
   box-sizing: border-box;
@@ -29,12 +31,12 @@
 
 .intro__description{
   font-weight: 400;
-  font-size: 1.25em;
+  font-size: 1.5em;
 }
 
 .intro__attribution{
   font-weight: 300;
-  font-size: 1.1em;
+  font-size: 1.35em;
   text-decoration: none;
 }
 
@@ -56,12 +58,13 @@
 }
 
 .carousel{
+  flex: 1;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  max-inline-size: 1300px;
   min-block-size: 50%;
   inline-size: 70%;
+  max-inline-size: min(90%, 1920px);
   margin: 0 auto;
 }
 
@@ -69,7 +72,6 @@
   box-sizing: border-box;
   min-inline-size: 300px;
   inline-size: 100%;
-  max-inline-size: 65%;
   block-size: 100%;
   position: relative;
   margin: 0 auto;
@@ -79,8 +81,12 @@
   position: absolute;
   top:0;
   left:0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
   box-sizing: border-box;
   inline-size: 100%;
+  max-inline-size: 75%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
   border-radius: 40px;
@@ -122,11 +128,11 @@
   z-index: 3;
   filter: saturate(0.5);
 }
-
+/* 
 .carousel__item:hover{
   cursor: pointer;
   transform: translateX(var(--translate-x)) scale(--scale);
-}
+} */
 
 .carousel__image{
   width: 100%;
@@ -138,7 +144,6 @@
 
 .carousel__buttons{
   display: flex;
-  margin-top:auto;
   justify-content: center;
   align-items: center;
 }
@@ -171,3 +176,9 @@
   background-color:rgba(164,145,255,1);
 }
 
+@media screen and (min-width:120em) {
+  html{
+    font-size:20px;
+  }
+  
+}
