@@ -2,7 +2,14 @@
   height: 100vh;
   height: 100svh;
   box-sizing: border-box;
-  background-color:rgb(7, 7, 7);
+  background:
+  linear-gradient(
+      rgba(0, 0, 0, 0.5), 
+      rgba(0, 0, 0, 0.5)
+    ),
+  rgb(24, 4, 4)
+  url(/icons/valorantBg.svg) 50% 50% no-repeat;
+  background-size: 100%;
   /* background-color:rgba(24,0,44,1); */
   color:rgb(235, 235, 235);
   text-align: center;
@@ -77,60 +84,49 @@
   aspect-ratio: 16 / 9;
   object-fit: cover;
   border-radius: 40px;
+  transition: transform 0.5s ease-in-out;
 }
+
 .carousel__item--hidden{
-  display: none;
+  /* display: none; */
+  visibility: hidden;
 }
 
-.carousel__item:not(.carousel__item--hidden):nth-of-type(3){
+.carousel__item--main{
+  --translate-x : 0%
+  --scale: 1.5;
   z-index: 5;
   filter: brightness(1.2);
 }
-.carousel__item:not(.carousel__item--hidden):nth-of-type(5){
-  transform: translateX(20%) scale(0.9);
+.carousel__item--right{
+  --translate-x: 25%
+  --scale: 1.5;
+  transform: translateX(25%) scale(0.9);
   z-index: 4;
   filter: saturate(0.9);
 }
-.carousel__item:not(.carousel__item--hidden):nth-of-type(4){
-  transform: translateX(35%) scale(0.8);
+.carousel__item--rightest{
+  --translate-x: 50%
+  --scale: 1.5;
+  transform: translateX(50%) scale(0.8);
   z-index: 3;
   filter: saturate(0.7);
 }
-.carousel__item:not(.carousel__item--hidden):nth-of-type(2){
-  transform: translateX(-20%) scale(0.9);
+.carousel__item--left{
+  transform: translateX(-25%) scale(0.9);
   z-index: 4;
   filter: saturate(0.9);
 }
-.carousel__item:not(.carousel__item--hidden):nth-of-type(1){
-  transform: translateX(-35%) scale(0.8);
+.carousel__item--leftest{
+  transform: translateX(-50%) scale(0.8);
   z-index: 3;
   filter: saturate(0.5);
 }
 
-/* .carousel__item:nth-child(3){
-  z-index: 5;
-  filter: brightness(1.2);
+.carousel__item:hover{
+  cursor: pointer;
+  transform: translateX(var(--translate-x)) scale(--scale);
 }
-.carousel__item:nth-child(5){
-  transform: translateX(20%) scale(0.9);
-  z-index: 4;
-  filter: saturate(0.9);
-}
-.carousel__item:nth-child(4){
-  transform: translateX(35%) scale(0.8);
-  z-index: 3;
-  filter: saturate(0.7);
-}
-.carousel__item:nth-child(2){
-  transform: translateX(-20%) scale(0.9);
-  z-index: 4;
-  filter: saturate(0.9);
-}
-.carousel__item:nth-child(1){
-  transform: translateX(-35%) scale(0.8);
-  z-index: 3;
-  filter: saturate(0.5);
-} */
 
 .carousel__image{
   width: 100%;

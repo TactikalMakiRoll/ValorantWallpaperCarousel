@@ -1,94 +1,9 @@
-/* <div class="carousel__item">
-    <img
-        src="/img/harbour.jpg"
-        alt="Harbour wallpaper"
-        class="carousel__image" />
-</div>
-<div class="carousel__item">
-    <img
-        src="/img/reyna.jpg"
-        alt="Reyna wallpaper"
-        class="carousel__image" />
-</div>
-<div class="carousel__item">
-    <img
-        src="/img/killjoy.jpg"
-        alt="Killjoy wallpaper"
-        class="carousel__image" />
-</div>
-<div class="carousel__item">
-    <img
-        src="/img/brimstone.png"
-        alt="Brimstone wallpaper"
-        class="carousel__image" />
-</div>
-<div class="carousel__item">
-    <img
-        src="/img/jett.jpg"
-        alt="Jett wallpaper"
-        class="carousel__image" />
-</div> */
-
-//     <div class="carousel__item">
-//     <img
-//         src="/img/chamber.webp"
-//         alt="Chamber wallpaper"
-//         class="carousel__image" />
-// </div>
-// <div class="carousel__item">
-//     <img
-//         src="/img/neon.jpeg"
-//         alt="Neon wallpaper"
-//         class="carousel__image" />
-// </div>
-// <div class="carousel__item">
-//     <img
-//         src="/img/omen.webp"
-//         alt="Omen wallpaper"
-//         class="carousel__image" />
-// </div>
-// <div class="carousel__item">
-//     <img
-//         src="/img/phoenix.jpg"
-//         alt="Phoenix wallpaper"
-//         class="carousel__image" />
-// </div>
-// <div class="carousel__item">
-//     <img
-//         src="/img/raze.jpg"
-//         alt="Raze wallpaper"
-//         class="carousel__image" />
-// </div>
-// <div class="carousel__item">
-//     <img
-//         src="/img/sage.jpg"
-//         alt="Sage wallpaper"
-//         class="carousel__image" />
-// </div>
-// <div class="carousel__item">
-//     <img
-//         src="/img/skye.jpg"
-//         alt="Skye wallpaper"
-//         class="carousel__image" />
-// </div>
-// <div class="carousel__item">
-//     <img
-//         src="/img/viper.jpg"
-//         alt="Viper wallpaper"
-//         class="carousel__image" />
-// </div>
-// <div class="carousel__item">
-//     <img
-//         src="/img/yoru.jpg"
-//         alt="Yoru wallpaper"
-//         class="carousel__image" />
-// </div>
-
-// <button
-// class="carousel__switch-btn carousel__switch-btn--left"></button>
-
+// get carousel DOM element
 const carousel = document.querySelector(".carousel__items");
+// prepare an array of DOM elements which of .carousel__items class
 const carouselItems = [];
+
+// prepare a list of names for each wallpaper
 const wallpaperSources = [
     "reyna.jpg",
     "killjoy.jpg",
@@ -105,58 +20,94 @@ const wallpaperSources = [
     "yoru.jpg",
 ];
 
-let activeImage = 0;
+function appendVisualClasses(activeItemCollection) {
+    activeItemCollection[0].classList.add("carousel__item--leftest");
+    activeItemCollection[1].classList.add("carousel__item--left");
+    activeItemCollection[2].classList.add("carousel__item--main");
+    activeItemCollection[3].classList.add("carousel__item--right");
+    activeItemCollection[4].classList.add("carousel__item--rightest");
+}
 
-for (let i = 0; i < wallpaperSources.length; i++) {
-    const carouselItem = document.createElement("div");
-    carouselItem.classList.add("carousel__item");
+function fillCarousel(sourceCollection) {
+    for (let i = 0; i < sourceCollection.length; i++) {
+        // create carousel item DOM element
+        const carouselItem = document.createElement("div");
+        carouselItem.classList.add("carousel__item");
 
-    const carouselImage = new Image();
-    carouselImage.src = "/img/" + wallpaperSources[i];
-    carouselImage.alt = wallpaperSources[i].split(".")[0] + "wallpaper";
-    carouselImage.classList.add("carousel__image");
+        // create image and append "src" attribute to it
+        const carouselImage = new Image();
+        carouselImage.src = "/img/" + sourceCollection[i];
+        carouselImage.alt = sourceCollection[i].split(".")[0] + "wallpaper";
+        carouselImage.classList.add("carousel__image");
+        carouselItem.appendChild(carouselImage);
 
-    if (i >= 5) {
-        carouselItem.classList.add("carousel__item--hidden");
+        // add that DOM element to items array
+        carouselItems.push(carouselItem);
+    }
+}
+
+function InitializeCarousel() {
+    //create wallpaper images and put them into carousel
+    fillCarousel(wallpaperSources);
+
+    // add CSS display classes to first active items
+    appendVisualClasses(carouselItems.slice(0, 5));
+
+    // Hide all the other ones
+    for (let i = 5; i < carouselItems.length; i++) {
+        carouselItems[i].classList.add("carousel__item--hidden");
     }
 
-    carouselItem.appendChild(carouselImage);
-    carouselItems.push(carouselItem);
+    // push ready DOM elements into the carousel
+    for (let i = 0; i < carouselItems.length; i++) {
+        carousel.appendChild(carouselItems[i]);
+    }
 }
 
-for (let i = 0; i < carouselItems.length; i++) {
-    carousel.appendChild(carouselItems[i]);
-}
+InitializeCarousel();
 
+// track which image is currently displayed first (The most left image on page)
+let firstImageIndex = 0;
+
+// get left/right arrows of the carousel
 const scrollLeftBtn = document.querySelector(".carousel__move-btn--left");
 const scrollRightBtn = document.querySelector(".carousel__move-btn--right");
 
+// Switching slides. Direction is determening whether a left or right button was pressed, while selected is there in case indicators were pressed
 function switchSlides(direction, selected) {
-    console.log("slides were switched");
     if (selected !== undefined) {
-        activeImage = selected;
+        firstImageIndex = selected;
     } else {
-        activeImage += direction;
-        activeImage > carouselItems.length ? (activeImage = 0) : activeImage;
-        activeImage < 0
-            ? (activeImage = carouselItems.length - 1)
-            : activeImage;
+        // add or distract one from first image index and normalize it to fit the array
+        firstImageIndex += direction;
+        firstImageIndex =
+            firstImageIndex < 0
+                ? carouselItems.length + firstImageIndex
+                : firstImageIndex % carouselItems.length;
     }
 
+    // reset each carousel item CSS to hide them
     for (let i = 0; i < carouselItems.length; i++) {
+        carouselItems[i].className = "";
+        carouselItems[i].classList.add("carousel__item");
         carouselItems[i].classList.add("carousel__item--hidden");
     }
-    for (let i = activeImage, j = 0; j < 5; i++, j++) {
-        console.log(i);
-        i > carouselItems.length - 1 ? (i = 0) : i;
-        i < 0 ? (i = carouselItems.length - 1) : i;
-        carouselItems[i].classList.remove("carousel__item--hidden");
+
+    // re-add the CSS classes to currently active five items and show them again
+    let slides = carouselItems.slice(firstImageIndex, firstImageIndex + 5);
+    if (slides.length < 5) {
+        slides = slides.concat(carouselItems.slice(0, 5 - slides.length));
     }
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].classList.remove("carousel__item--hidden");
+    }
+    appendVisualClasses(slides);
 }
 
 scrollLeftBtn.addEventListener("click", () => {
     switchSlides(-1);
 });
+
 scrollRightBtn.addEventListener("click", () => {
     switchSlides(1);
 });
