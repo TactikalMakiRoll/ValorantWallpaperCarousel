@@ -22,5 +22,5 @@ Some things can be improved, for example:
 - Responsiveness is still not perfect, on bigger screens, the app looks too in-the-face, on smaller screens it loses it's easy controls
 - Animation of items transitioning could be done differently to prevent slides stacking on top of each other randomly with z-index changing and to prevent slides from always moving from center.
 For example, we could track the next possible active item and give a new class to it, so it would appear from a different direction (visually natural). For now, I just added speed to the animation so it's not that obvious
-
+- Some kind of a check could be added to only add slider once every image actually loads + noscript placeholder for someone who blocked JS from running
 
