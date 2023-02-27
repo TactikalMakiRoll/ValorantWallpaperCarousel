@@ -64,7 +64,7 @@
   box-sizing: border-box;
   min-block-size: 50%;
   inline-size: 70%;
-  max-inline-size: min(90%, 1920px);
+  max-inline-size: min(90%, 1920px, 80vh);
   margin: 0 auto;
 }
 
