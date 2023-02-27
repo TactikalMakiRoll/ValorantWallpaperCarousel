@@ -1,8 +1,9 @@
 # Valorant Wallpaper Carousel/Slider
 This is a carousel I wrote myself to practice JS/CSS/DOM Skills. And as a bonus, you can check out cool Valorant wallpapers in there. (Link in heading)
+
 **Link to project:** https://valorantwpp.netlify.app/
 
-![image](https://user-images.githubusercontent.com/51524264/221661996-e14f8a54-1731-45d9-a1f6-bd6a3b7a77dd.png)
+<a href="https://valorantwpp.netlify.app/">![image](https://user-images.githubusercontent.com/51524264/221661996-e14f8a54-1731-45d9-a1f6-bd6a3b7a77dd.png)</a>
 
 ## How It's Made:
 
