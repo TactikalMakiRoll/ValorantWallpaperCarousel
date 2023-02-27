@@ -1,10 +1,11 @@
 // get carousel DOM element
 const carousel = document.querySelector(".carousel__items");
 // and switch-btns container
-const indicatorCollection = document.querySelector(".carousel__switch-btns");
+const indicatorParent = document.querySelector(".carousel__switch-btns");
 // prepare an array of DOM elements which of .carousel__items class
 const carouselItemCollection = [];
-const activeEventListeners = [];
+// and array of indicator elements
+const indicatorCollection = [];
 
 // prepare a list of names for each wallpaper
 const wallpaperSources = [
@@ -41,6 +42,7 @@ const scrollToRightest = function (e) {
     switchSlides(2);
 };
 
+// positioning of active slide elements
 function appendVisualClasses(activeItemCollection) {
     activeItemCollection[0].classList.add("carousel__item--leftest");
     activeItemCollection[1].classList.add("carousel__item--left");
@@ -52,18 +54,29 @@ function appendVisualClasses(activeItemCollection) {
     }
 }
 
+// active indicator mark
+function resetIndicatorActiveCSS() {
+    for (let i = 0; i < indicatorCollection.length; i++) {
+        indicatorCollection[i].classList.remove("carousel__switch-btn--active");
+    }
+}
+
+// add/remove DOM listeners for active slides
 function appendDOMListeners(activeItemCollection) {
-    activeItemCollection[0].addEventListener("click", scrollToLeftest);
-    activeItemCollection[1].addEventListener("click", scrollToLeft);
-    activeItemCollection[3].addEventListener("click", scrollToRight);
-    activeItemCollection[4].addEventListener("click", scrollToRightest);
+    activeItemCollection[0].addEventListener("pointerdown", scrollToLeftest);
+    activeItemCollection[1].addEventListener("pointerdown", scrollToLeft);
+    activeItemCollection[3].addEventListener("pointerdown", scrollToRight);
+    activeItemCollection[4].addEventListener("pointerdown", scrollToRightest);
 }
 
 function clearDOMListeners(activeItemCollection) {
-    activeItemCollection[0].removeEventListener("click", scrollToLeftest);
-    activeItemCollection[1].removeEventListener("click", scrollToLeft);
-    activeItemCollection[3].removeEventListener("click", scrollToRight);
-    activeItemCollection[4].removeEventListener("click", scrollToRightest);
+    activeItemCollection[0].removeEventListener("pointerdown", scrollToLeftest);
+    activeItemCollection[1].removeEventListener("pointerdown", scrollToLeft);
+    activeItemCollection[3].removeEventListener("pointerdown", scrollToRight);
+    activeItemCollection[4].removeEventListener(
+        "pointerdown",
+        scrollToRightest
+    );
 }
 
 function fillCarousel(sourceCollection) {
@@ -85,7 +98,8 @@ function fillCarousel(sourceCollection) {
         // add a carousel indicator to each slide
         const indicator = document.createElement("button");
         indicator.classList.add("carousel__switch-btn");
-        indicatorCollection.appendChild(indicator);
+        indicatorParent.appendChild(indicator);
+        indicatorCollection.push(indicator);
     }
 }
 
@@ -126,7 +140,7 @@ function switchSlides(direction, selected) {
         carouselItemCollection[i].classList.add("carousel__item--hidden");
     }
 
-    // clear "click" event listeners for side items
+    // clear "pointerdown" event listeners for side items
     let slides = carouselItemCollection.slice(
         firstImageIndex,
         firstImageIndex + 5
@@ -146,7 +160,7 @@ function switchSlides(direction, selected) {
     }
 
     // re-add the CSS classes to currently active five items and show them again
-    // plus add click event listeners
+    // plus add pointerdown event listeners
     slides = carouselItemCollection.slice(firstImageIndex, firstImageIndex + 5);
     if (slides.length < 5) {
         slides = slides.concat(
@@ -155,12 +169,29 @@ function switchSlides(direction, selected) {
     }
     appendVisualClasses(slides);
     appendDOMListeners(slides);
+
+    //make correct indicator button active
+    resetIndicatorActiveCSS();
+
+    indicatorCollection[
+        (firstImageIndex + 2) % indicatorCollection.length
+    ].classList.add("carousel__switch-btn--active");
 }
 
-scrollLeftBtn.addEventListener("click", () => {
+//add DOM events to left/right buttons
+scrollLeftBtn.addEventListener("pointerdown", () => {
     switchSlides(-1);
 });
 
-scrollRightBtn.addEventListener("click", () => {
+scrollRightBtn.addEventListener("pointerdown", () => {
     switchSlides(1);
 });
+
+//add DOM events to indicators
+for (let i = 0; i < indicatorCollection.length; i++) {
+    indicatorCollection[i].addEventListener("pointerdown", () => {
+        resetIndicatorActiveCSS();
+        switchSlides(i - 2 - firstImageIndex);
+        indicatorCollection[i].classList.add("carousel__switch-btn--active");
+    });
+}
