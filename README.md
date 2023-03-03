@@ -24,4 +24,4 @@ Some things can be improved, for example:
 - Animation of items transitioning could be done differently to prevent slides stacking on top of each other randomly with z-index changing and to prevent slides from always moving from center.
 For example, we could track the next possible active item and give a new class to it, so it would appear from a different direction (visually natural). For now, I just added speed to the animation so it's not that obvious
 - Some kind of a check could be added to only add slider once every image actually loads + noscript placeholder for someone who blocked JS from running
-
+- Add a zoom feature when clicking on the element in centre. And an SVG icon while hovering on it. Maybe even "download image" button.
